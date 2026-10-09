@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Settings — EPMS</title>
+<meta name="description" content="Manage your profile, notifications, appearance and account security.">
+<link rel="icon" type="image/svg+xml" href="logo.svg">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Source+Sans+3:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<input type="checkbox" id="dm" class="sr-only" aria-label="Toggle dark mode">
+<input type="checkbox" id="nav" aria-label="Toggle menu">
+<label class="scrim" for="nav" aria-label="Close menu"></label>
+
+<div class="app">
+  <aside class="side">
+    <a class="brand" href="index.html"><img src="logo.svg" alt="" width="36" height="36"><span class="t">EPMS</span></a>
+    <div class="dm-row">
+      <i class="bi bi-moon-stars"></i>
+      <label for="dm" class="t">Dark mode</label>
+      <label class="sw"><input type="checkbox" onchange="document.getElementById('dm').checked=this.checked"><span></span></label>
+    </div>
+    <nav class="nav" aria-label="App">
+      <a href="dashboard.html" title="Dashboard"><i class="bi bi-grid-1x2"></i><span class="t">Dashboard</span></a>
+      <a href="dashboard.html#board" title="Board"><i class="bi bi-kanban"></i><span class="t">Board</span></a>
+      <a href="dashboard.html#sprint" title="Sprints"><i class="bi bi-calendar-range"></i><span class="t">Sprints</span></a>
+      <a href="dashboard.html#overdue" title="Tasks"><i class="bi bi-check2-square"></i><span class="t">Tasks</span></a>
+      <a href="projects.html" title="Projects"><i class="bi bi-folder2-open"></i><span class="t">Projects</span></a>
+      <a href="profiles.html" title="Profiles"><i class="bi bi-people"></i><span class="t">Profiles</span></a>
+      <a href="settings.html" aria-current="page" title="Settings"><i class="bi bi-gear"></i><span class="t">Settings</span></a>
+      <a href="login.html" title="Sign out"><i class="bi bi-box-arrow-right"></i><span class="t">Sign out</span></a>
+    </nav>
+    <div class="me"><span class="av">SK</span><div class="t"><b>Sana Khan</b><small>Project Manager</small></div></div>
+  </aside>
+
+  <div class="page">
+    <header class="top">
+      <label class="ico burger" for="nav" aria-label="Open menu"><i class="bi bi-list"></i></label>
+      <div class="search" role="search"><i class="bi bi-search"></i><input type="search" placeholder="Search settings…" aria-label="Search"></div>
+      <span class="sp"></span>
+      <details class="drop">
+        <summary class="ico" aria-label="Notifications"><i class="bi bi-bell"></i></summary>
+        <div class="drop-menu"><h4>Notifications</h4>
+          <a class="notif-item" href="task-detail.html"><span class="chip"><i class="bi bi-person-plus"></i></span><div><b>Ayesha assigned you a task</b><small>10 min ago</small></div><span class="notif-dot"></span></a>
+          <a class="drop-footer" href="dashboard.html#activity">View all notifications</a>
+        </div>
+      </details>
+      <details class="drop">
+        <summary class="av" aria-label="Your account">SK</summary>
+        <div class="drop-menu av-menu">
+          <div class="av-info"><b>Sana Khan</b><small>sana@example.com</small></div>
+          <a class="av-link" href="profiles.html#pm"><i class="bi bi-person-circle"></i>Your profile</a>
+          <a class="av-link" href="settings.html"><i class="bi bi-gear"></i>Settings</a>
+          <a class="av-link" href="login.html" style="color:var(--red-ink)"><i class="bi bi-box-arrow-right"></i>Sign out</a>
+        </div>
+      </details>
+    </header>
+
+    <main>
+      <nav class="bread" aria-label="Breadcrumb">
+        <a href="index.html">Home</a><i class="bi bi-chevron-right"></i>
+        <span>Settings</span>
+      </nav>
+
+      <div class="head" style="margin-bottom:24px">
+        <div><h1>Settings</h1><p>Manage your profile, notifications and workspace preferences</p></div>
+      </div>
+
+      <!-- Success alert -->
+      <div class="alert success" style="margin-bottom:20px" role="alert">
+        <i class="bi bi-check-circle-fill"></i>
+        <div><strong>Preferences saved</strong> — your changes have been applied.</div>
+      </div>
+
+      <div class="settings-layout">
+        <!-- ── Settings nav ── -->
+        <nav class="settings-nav" aria-label="Settings sections">
+          <a href="#profile"  class="active"><i class="bi bi-person-circle"></i><span class="t">Profile</span></a>
+          <a href="#appearance"><i class="bi bi-palette"></i><span class="t">Appearance</span></a>
+          <a href="#notifications"><i class="bi bi-bell"></i><span class="t">Notifications</span></a>
+          <a href="#security"><i class="bi bi-shield-lock"></i><span class="t">Security</span></a>
+          <a href="#danger"><i class="bi bi-exclamation-triangle" style="color:var(--red-ink)"></i><span class="t" style="color:var(--red-ink)">Danger zone</span></a>
+        </nav>
+
+        <!-- ── Settings content ── -->
+        <div>
+
+          <!-- Profile -->
+          <section class="settings-section" id="profile">
+            <h2>Profile</h2>
+            <div class="card">
+              <div style="display:flex;align-items:center;gap:20px;margin-bottom:20px;flex-wrap:wrap">
+                <span class="av lg">SK</span>
+                <div>
+                  <p style="margin:0 0 8px;font-weight:600">Profile photo</p>
+                  <div style="display:flex;gap:8px;flex-wrap:wrap">
+                    <a href="#" class="btn sm ghost"><i class="bi bi-upload"></i>Upload</a>
+                    <a href="#" class="btn sm ghost" style="color:var(--red-ink)"><i class="bi bi-trash"></i>Remove</a>
+                  </div>
+                </div>
+              </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+                <div>
+                  <label for="s-name">Display name</label>
+                  <input id="s-name" type="text" value="Sana Khan">
+                </div>
+                <div>
+                  <label for="s-role">Role</label>
+                  <select id="s-role"><option>Admin</option><option selected>Project Manager</option><option>Team Member</option></select>
+                </div>
+              </div>
+              <label for="s-email">Email address</label>
+              <input id="s-email" type="email" value="sana@example.com">
+              <label for="s-bio">Bio</label>
+              <textarea id="s-bio" rows="3">Engineering project manager at COMSATS University. Sprint planning, team unblocking, shipping.</textarea>
+              <div style="margin-top:16px;display:flex;gap:10px;justify-content:flex-end">
+                <a href="#" class="btn ghost">Discard</a>
+                <button class="btn pri" type="button"><i class="bi bi-check2"></i>Save profile</button>
+              </div>
+            </div>
+          </section>
+
+          <!-- Appearance -->
+          <section class="settings-section" id="appearance">
+            <h2>Appearance</h2>
+            <div class="card">
+              <div class="toggle-row">
+                <div><strong>Dark mode</strong><small>Switch to a dark background — easier on the eyes at night.</small></div>
+                <label class="sw"><input type="checkbox" id="dm-settings" onchange="document.getElementById('dm').checked=this.checked"><span></span></label>
+              </div>
+              <div class="toggle-row">
+                <div><strong>Compact density</strong><small>Reduce padding to fit more content on screen.</small></div>
+                <label class="sw"><input type="checkbox"><span></span></label>
+              </div>
+              <div class="toggle-row">
+                <div><strong>Reduced motion</strong><small>Disable animations and transitions.</small></div>
+                <label class="sw"><input type="checkbox"><span></span></label>
+              </div>
+              <div style="padding:14px 0;border-bottom:1px solid var(--line)">
+                <strong style="display:block;margin-bottom:4px">Accent colour</strong>
+                <small style="color:var(--muted)">Pick your dashboard's highlight colour.</small>
+                <div class="color-swatches">
+                  <span class="swatch sel" style="background:#2563C9" title="Blue (default)" tabindex="0" role="radio" aria-checked="true"></span>
+                  <span class="swatch" style="background:#7C3AED" title="Violet" tabindex="0" role="radio" aria-checked="false"></span>
+                  <span class="swatch" style="background:#0F766E" title="Teal" tabindex="0" role="radio" aria-checked="false"></span>
+                  <span class="swatch" style="background:#B45309" title="Amber" tabindex="0" role="radio" aria-checked="false"></span>
+                  <span class="swatch" style="background:#BE123C" title="Rose" tabindex="0" role="radio" aria-checked="false"></span>
+                  <span class="swatch" style="background:#0E7490" title="Cyan" tabindex="0" role="radio" aria-checked="false"></span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Notifications -->
+          <section class="settings-section" id="notifications">
+            <h2>Notifications</h2>
+            <div class="card">
+              <div class="toggle-row">
+                <div><strong>Task assigned to you</strong><small>Get notified when a task is assigned directly to you.</small></div>
+                <label class="sw"><input type="checkbox" checked><span></span></label>
+              </div>
+              <div class="toggle-row">
+                <div><strong>@mention in a comment</strong><small>Notified when someone @mentions you in any task comment.</small></div>
+                <label class="sw"><input type="checkbox" checked><span></span></label>
+              </div>
+              <div class="toggle-row">
+                <div><strong>Task status changed</strong><small>When a task you own changes columns on the board.</small></div>
+                <label class="sw"><input type="checkbox" checked><span></span></label>
+              </div>
+              <div class="toggle-row">
+                <div><strong>Sprint started or ended</strong><small>Receive a summary when a sprint begins or closes.</small></div>
+                <label class="sw"><input type="checkbox"><span></span></label>
+              </div>
+              <div class="toggle-row">
+                <div><strong>Overdue task reminders</strong><small>Daily digest for all your overdue tasks.</small></div>
+                <label class="sw"><input type="checkbox" checked><span></span></label>
+              </div>
+              <div class="toggle-row">
+                <div><strong>Email notifications</strong><small>Send the above alerts to sana@example.com as well.</small></div>
+                <label class="sw"><input type="checkbox"><span></span></label>
+              </div>
+            </div>
+          </section>
+
+          <!-- Security -->
+          <section class="settings-section" id="security">
+            <h2>Security</h2>
+            <div class="card">
+              <label for="s-pw">New password</label>
+              <input id="s-pw" type="password" placeholder="At least 8 characters">
+              <label for="s-pw2">Confirm new password</label>
+              <input id="s-pw2" type="password" placeholder="Repeat new password">
+              <div style="margin-top:16px;display:flex;gap:10px;justify-content:flex-end">
+                <button class="btn pri" type="button"><i class="bi bi-shield-lock"></i>Update password</button>
+              </div>
+            </div>
+            <div class="card" style="margin-top:14px">
+              <div class="toggle-row">
+                <div><strong>Two-factor authentication</strong><small>Require a one-time code on every login.</small></div>
+                <label class="sw"><input type="checkbox"><span></span></label>
+              </div>
+              <div class="toggle-row">
+                <div><strong>Active sessions</strong><small>You are signed in on 2 devices.</small></div>
+                <a href="#" class="btn sm ghost" style="flex:none">View &amp; revoke</a>
+              </div>
+            </div>
+          </section>
+
+          <!-- Danger zone -->
+          <section class="settings-section danger-zone" id="danger">
+            <h2>Danger zone</h2>
+            <div class="toggle-row">
+              <div><strong>Export your data</strong><small>Download all your tasks, comments and projects as JSON.</small></div>
+              <a href="#" class="btn sm ghost" style="flex:none"><i class="bi bi-download"></i>Export</a>
+            </div>
+            <div class="toggle-row" style="margin-top:12px">
+              <div><strong style="color:var(--red-ink)">Delete account</strong><small>Permanently removes your account and all associated data. This cannot be undone.</small></div>
+              <a href="#" class="btn sm danger" style="flex:none"><i class="bi bi-trash"></i>Delete</a>
+            </div>
+          </section>
+
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,15 @@
+# ── IDE / Editor settings ────────────────────────────────────
+.kiro/          # Kiro IDE workspace settings (machine-specific paths)
+.vscode/        # VS Code workspace settings
+.idea/          # JetBrains IDE settings
+
+# ── OS junk ──────────────────────────────────────────────────
+.DS_Store       # macOS folder metadata
+Thumbs.db       # Windows thumbnail cache
+desktop.ini     # Windows folder config
+
+# ── Logs & temp files ────────────────────────────────────────
+*.log
+*.tmp
+*.bak
+.gemini/          # Antigravity IDE workspace data

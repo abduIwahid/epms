@@ -4,54 +4,222 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Dashboard — EPMS</title>
+<meta name="description" content="Your engineering project dashboard — sprints, tasks, board and team workload at a glance.">
 <link rel="icon" type="image/svg+xml" href="logo.svg">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Source+Sans+3:wght@400;600;700&display=swap">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+<!-- dark-mode checkbox (scoped via :has()) -->
+<input type="checkbox" id="dm" class="sr-only" aria-label="Toggle dark mode">
 <input type="checkbox" id="nav" aria-label="Toggle menu">
 <label class="scrim" for="nav" aria-label="Close menu"></label>
+
+<!-- ── New Task Modal (HTML :target trick; works without JS) ── -->
+<div id="new-task" role="dialog" aria-modal="true" aria-label="Create new task">
+  <div class="modal-card">
+    <div class="modal-h">
+      <h2><i class="bi bi-plus-circle" style="color:var(--b500)"></i> New Task</h2>
+      <a href="#" class="modal-close" aria-label="Close"><i class="bi bi-x-lg"></i></a>
+    </div>
+    <div class="modal-body">
+      <label for="nt-title">Task title <span style="color:var(--red)">*</span></label>
+      <input id="nt-title" type="text" placeholder="e.g. Fix login timeout" required>
+
+      <div class="modal-row">
+        <div>
+          <label for="nt-type">Type</label>
+          <select id="nt-type">
+            <option>🐛 Bug</option>
+            <option selected>✨ Feature</option>
+            <option>⚡ Improvement</option>
+          </select>
+        </div>
+        <div>
+          <label for="nt-priority">Priority</label>
+          <select id="nt-priority">
+            <option>🔴 Critical</option>
+            <option>🟠 High</option>
+            <option selected>🔵 Medium</option>
+            <option>⚪ Low</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="modal-row">
+        <div>
+          <label for="nt-assignee">Assignee</label>
+          <select id="nt-assignee">
+            <option>Ayesha Khan</option>
+            <option>Bilal Mehmood</option>
+            <option selected>Sara Ahmed</option>
+            <option>Omar Farooq</option>
+            <option>Sana Khan</option>
+          </select>
+        </div>
+        <div>
+          <label for="nt-due">Due date</label>
+          <input id="nt-due" type="date" value="2026-10-24">
+        </div>
+      </div>
+
+      <label for="nt-sprint">Sprint</label>
+      <select id="nt-sprint">
+        <option selected>Sprint 7 · Orion Mobile Release</option>
+        <option>Sprint 8 · Billing Portal</option>
+        <option>Backlog (no sprint)</option>
+      </select>
+
+      <label for="nt-desc">Description</label>
+      <textarea id="nt-desc" placeholder="What needs to be done? Add context, links or acceptance criteria…"></textarea>
+
+      <div class="modal-footer">
+        <a href="#" class="btn ghost">Cancel</a>
+        <a href="task-detail.html" class="btn pri"><i class="bi bi-check2"></i>Create task</a>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="app">
+  <!-- ── Sidebar ─────────────────────────────────────── -->
   <aside class="side">
     <a class="brand" href="index.html"><img src="logo.svg" alt="" width="36" height="36"><span class="t">EPMS</span></a>
+
+    <!-- dark mode toggle -->
+    <div class="dm-row">
+      <i class="bi bi-moon-stars"></i>
+      <label for="dm" class="t">Dark mode</label>
+      <label class="sw"><input type="checkbox" id="dm-side" onchange="document.getElementById('dm').checked=this.checked"><span></span></label>
+    </div>
+
     <nav class="nav" aria-label="App">
       <a href="dashboard.html" aria-current="page" title="Dashboard"><i class="bi bi-grid-1x2"></i><span class="t">Dashboard</span></a>
       <a href="#board" title="Board"><i class="bi bi-kanban"></i><span class="t">Board</span></a>
       <a href="#sprint" title="Sprints"><i class="bi bi-calendar-range"></i><span class="t">Sprints</span></a>
       <a href="#overdue" title="Tasks"><i class="bi bi-check2-square"></i><span class="t">Tasks</span></a>
+      <a href="projects.html" title="Projects"><i class="bi bi-folder2-open"></i><span class="t">Projects</span></a>
       <a href="profiles.html" title="Profiles"><i class="bi bi-people"></i><span class="t">Profiles</span></a>
+      <a href="settings.html" title="Settings"><i class="bi bi-gear"></i><span class="t">Settings</span></a>
       <a href="login.html" title="Sign out"><i class="bi bi-box-arrow-right"></i><span class="t">Sign out</span></a>
     </nav>
     <div class="me"><span class="av">SK</span><div class="t"><b>Sana Khan</b><small>Project Manager</small></div></div>
   </aside>
 
   <div class="page">
+    <!-- ── Top bar ──────────────────────────────────── -->
     <header class="top">
       <label class="ico burger" for="nav" aria-label="Open menu"><i class="bi bi-list"></i></label>
       <div class="search" role="search"><i class="bi bi-search"></i><input type="search" placeholder="Search tasks, projects, people" aria-label="Search"></div>
       <span class="sp"></span>
-      <a class="ico" href="#activity" aria-label="Notifications, 3 new"><i class="bi bi-bell"></i><span class="dot"></span></a>
-      <a class="av" href="profiles.html#pm" aria-label="Your profile">SK</a>
+
+      <!-- Notification dropdown -->
+      <details class="drop" id="notif-drop">
+        <summary class="ico" aria-label="Notifications, 3 new" id="bell-btn">
+          <i class="bi bi-bell"></i><span class="dot"></span>
+        </summary>
+        <div class="drop-menu" role="menu" aria-label="Notifications">
+          <h4>Notifications</h4>
+          <a class="notif-item" href="task-detail.html" role="menuitem">
+            <span class="chip"><i class="bi bi-person-plus"></i></span>
+            <div><b>Ayesha assigned you "Fix login timeout"</b><small>10 min ago</small></div>
+            <span class="notif-dot"></span>
+          </a>
+          <a class="notif-item" href="task-detail.html" role="menuitem">
+            <span class="chip"><i class="bi bi-at"></i></span>
+            <div><b>Bilal mentioned you in "Push token refresh"</b><small>1 hour ago</small></div>
+            <span class="notif-dot"></span>
+          </a>
+          <a class="notif-item" href="task-detail.html" role="menuitem">
+            <span class="chip"><i class="bi bi-arrow-left-right"></i></span>
+            <div><b>Sara moved "Export report" to Review</b><small>3 hours ago</small></div>
+            <span class="notif-dot"></span>
+          </a>
+          <a class="notif-item" href="task-detail.html" role="menuitem">
+            <span class="chip"><i class="bi bi-paperclip"></i></span>
+            <div><b>Omar attached wireframes.pdf</b><small>Yesterday</small></div>
+          </a>
+          <a class="drop-footer" href="dashboard.html#activity">Mark all as read · View all</a>
+        </div>
+      </details>
+
+      <!-- Avatar dropdown -->
+      <details class="drop" id="avatar-drop">
+        <summary class="av" aria-label="Your account menu" id="avatar-btn">SK</summary>
+        <div class="drop-menu av-menu" role="menu" aria-label="Account">
+          <div class="av-info">
+            <b>Sana Khan</b>
+            <small>sana@example.com · Project Manager</small>
+          </div>
+          <a class="av-link" href="profiles.html#pm" role="menuitem"><i class="bi bi-person-circle"></i>Your profile</a>
+          <a class="av-link" href="settings.html" role="menuitem"><i class="bi bi-gear"></i>Settings</a>
+          <div style="display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(--line)">
+            <i class="bi bi-moon-stars" style="color:var(--muted)"></i>
+            <span style="flex:1;font-size:14px">Dark mode</span>
+            <label class="sw"><input type="checkbox" id="dm-top" onchange="document.getElementById('dm').checked=this.checked;document.getElementById('dm-side').checked=this.checked"><span></span></label>
+          </div>
+          <a class="av-link" href="login.html" role="menuitem" style="color:var(--red-ink)"><i class="bi bi-box-arrow-right"></i>Sign out</a>
+        </div>
+      </details>
     </header>
 
     <main>
+      <nav class="bread" aria-label="Breadcrumb">
+        <a href="index.html">Home</a><i class="bi bi-chevron-right"></i>
+        <a href="projects.html">Projects</a><i class="bi bi-chevron-right"></i>
+        <span>Orion Mobile Release</span>
+      </nav>
+
       <div class="head">
         <div><h1>Orion Mobile Release</h1><p>Sprint 7 · 3 Oct to 24 Oct · 15 days left</p></div>
-        <div class="cta"><a class="btn ghost" href="profiles.html"><i class="bi bi-person-plus"></i>Invite</a><a class="btn pri" href="#board"><i class="bi bi-plus-lg"></i>New task</a></div>
+        <div class="cta">
+          <a class="btn ghost" href="profiles.html"><i class="bi bi-person-plus"></i>Invite</a>
+          <a class="btn pri" href="#new-task" id="open-task-btn"><i class="bi bi-plus-lg"></i>New task</a>
+        </div>
       </div>
 
+      <!-- ── KPI stats ─────────────────────────────── -->
       <section class="grid stats" aria-label="Task counts">
         <div class="card stat"><span class="chip"><i class="bi bi-list-task"></i></span><div><b>42</b><span>Open tasks</span><small><i class="bi bi-arrow-up-short"></i>6 this week</small></div></div>
         <div class="card stat"><span class="chip"><i class="bi bi-eye"></i></span><div><b>9</b><span>In review</span><small>3 waiting 2+ days</small></div></div>
         <div class="card stat hot"><span class="chip red"><i class="bi bi-exclamation-triangle"></i></span><div><b>5</b><span>Overdue</span><small>Needs attention</small></div></div>
-        <div class="card stat"><span class="chip"><i class="bi bi-check2-circle"></i></span><div><b>31</b><span>Done this sprint</span><small><i class="bi bi-arrow-up-short"></i>8 vs last sprint</small></div></div>
+        <div class="card stat"><span class="chip green"><i class="bi bi-check2-circle"></i></span><div><b>31</b><span>Done this sprint</span><small><i class="bi bi-arrow-up-short"></i>8 vs last sprint</small></div></div>
       </section>
 
-      <section class="grid three">
+      <!-- ── Sprint + bars + activity ─────────────── -->
+      <section class="grid three" aria-label="Sprint overview">
         <div class="card" id="sprint">
           <div class="card-h"><h3>Sprint progress</h3><span class="tag">70 tasks</span></div>
-          <div class="donut-wrap">
+
+          <!-- Sprint timeline bar -->
+          <div class="sprint-timeline" aria-label="Sprint timeline, 48% complete">
+            <div class="sprint-bar-wrap"><div class="sprint-bar-fill" style="width:48%"></div></div>
+            <div class="sprint-labels"><span>3 Oct</span><span>Today · Day 7</span><span>24 Oct</span></div>
+          </div>
+          <div class="sprint-stats">
+            <div class="sprint-stat"><b>48%</b><small>Done</small></div>
+            <div class="sprint-stat"><b>15</b><small>Days left</small></div>
+            <div class="sprint-stat"><b>31</b><small>Completed</small></div>
+            <div class="sprint-stat"><b>39</b><small>Remaining</small></div>
+          </div>
+
+          <!-- Burndown SVG chart -->
+          <div class="burndown" aria-label="Burndown chart">
+            <p class="burndown-title">Burndown</p>
+            <svg viewBox="0 0 280 100" aria-hidden="true" preserveAspectRatio="none">
+              <!-- axes -->
+              <line x1="0" y1="0" x2="0" y2="100" stroke="var(--line)" stroke-width="1"/>
+              <line x1="0" y1="100" x2="280" y2="100" stroke="var(--line)" stroke-width="1"/>
+              <!-- ideal line -->
+              <polyline class="ideal" points="0,0 280,100"/>
+              <!-- actual -->
+              <polyline points="0,0 40,18 80,30 120,52 160,60 200,68"/>
+              <circle cx="200" cy="68" r="4"/>
+            </svg>
+          </div>
+
+          <div class="donut-wrap" style="margin-top:16px">
             <div class="donut" role="img" aria-label="44 percent of tasks done"><span><b>44%</b><small>done</small></span></div>
             <ul class="legend">
               <li><i style="background:var(--b800)"></i>Done<b>31</b></li>
@@ -65,7 +233,7 @@
 
         <div class="card">
           <div class="card-h"><h3>Completed this week</h3><span class="tag feat">17 tasks</span></div>
-          <div class="bars" role="img" aria-label="Tasks completed per day, Monday to Sunday: 4, 3, 5, 3, 2, 0, 0">
+          <div class="bars" role="img" aria-label="Tasks completed per day, Mon 4, Tue 3, Wed 5, Thu 3, Fri 2, Sat 0, Sun 0">
             <div><i style="--n:.8"></i><small>Mon</small></div>
             <div><i style="--n:.6"></i><small>Tue</small></div>
             <div><i style="--n:1"></i><small>Wed</small></div>
@@ -79,41 +247,61 @@
         <div class="card" id="activity">
           <div class="card-h"><h3>Recent activity</h3><span class="tag">3 new</span></div>
           <ul class="feed">
-            <li><span class="chip"><i class="bi bi-person-plus"></i></span><div><b>Ayesha</b> assigned you “Fix login timeout”<small>10 min ago</small></div></li>
-            <li><span class="chip"><i class="bi bi-at"></i></span><div><b>Bilal</b> mentioned you in “Push token refresh”<small>1 hour ago</small></div></li>
-            <li><span class="chip"><i class="bi bi-arrow-left-right"></i></span><div><b>Sara</b> moved “Export report” to Review<small>3 hours ago</small></div></li>
+            <li><span class="chip"><i class="bi bi-person-plus"></i></span><div><b>Ayesha</b> assigned you <a href="task-detail.html">"Fix login timeout"</a><small>10 min ago</small></div></li>
+            <li><span class="chip"><i class="bi bi-at"></i></span><div><b>Bilal</b> mentioned you in <a href="task-detail.html">"Push token refresh"</a><small>1 hour ago</small></div></li>
+            <li><span class="chip"><i class="bi bi-arrow-left-right"></i></span><div><b>Sara</b> moved <a href="task-detail.html">"Export report"</a> to Review<small>3 hours ago</small></div></li>
             <li><span class="chip"><i class="bi bi-paperclip"></i></span><div><b>Omar</b> attached wireframes.pdf<small>Yesterday</small></div></li>
           </ul>
         </div>
       </section>
 
-      <section id="board" aria-label="Kanban board">
-        <h2 class="sec-t">Board</h2>
+      <!-- ── Board ──────────────────────────────────── -->
+      <section id="board" aria-label="Kanban board" class="board-filter">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:12px">
+          <h2 class="sec-t" style="margin:0">Board</h2>
+          <div class="board-controls" role="group" aria-label="Filter by type">
+            <input type="radio" name="bfilter" id="f-all"  checked>
+            <label for="f-all">All</label>
+            <input type="radio" name="bfilter" id="f-bug">
+            <label for="f-bug">🐛 Bugs</label>
+            <input type="radio" name="bfilter" id="f-feat">
+            <label for="f-feat">✨ Features</label>
+            <input type="radio" name="bfilter" id="f-imp">
+            <label for="f-imp">⚡ Improvements</label>
+          </div>
+        </div>
         <div class="board">
           <div class="col"><h3>To do <b>12</b></h3>
-            <div class="task"><p>Fix login timeout</p><span class="tag bug">Bug</span><div class="meta"><span><i class="bi bi-calendar3"></i>12 Oct</span><span class="av sm">AK</span></div></div>
-            <div class="task"><p>Dark mode toggle</p><span class="tag feat">Feature</span><div class="meta"><span><i class="bi bi-calendar3"></i>20 Oct</span><span class="av sm">SA</span></div></div></div>
+            <a href="task-detail.html" class="task"><div class="task-pri pri-crit"><i class="bi bi-circle-fill" style="font-size:8px"></i>Critical</div><p>Fix login timeout</p><span class="tag bug">Bug</span><div class="meta"><span><i class="bi bi-calendar3"></i>12 Oct</span><span class="av sm">AK</span></div></a>
+            <a href="task-detail.html" class="task"><div class="task-pri pri-med"><i class="bi bi-circle-fill" style="font-size:8px"></i>Medium</div><p>Dark mode toggle</p><span class="tag feat">Feature</span><div class="meta"><span><i class="bi bi-calendar3"></i>20 Oct</span><span class="av sm">SA</span></div></a>
+            <a href="task-detail.html" class="task"><div class="task-pri pri-low"><i class="bi bi-circle-fill" style="font-size:8px"></i>Low</div><p>Update onboarding copy</p><span class="tag imp">Improvement</span><div class="meta"><span><i class="bi bi-calendar3"></i>22 Oct</span><span class="av sm">OF</span></div></a>
+          </div>
           <div class="col"><h3>In progress <b>18</b></h3>
-            <div class="task"><p>Push token refresh</p><span class="tag imp">Improvement</span><div class="meta"><span><i class="bi bi-calendar3"></i>15 Oct</span><span class="av sm">BM</span></div></div>
-            <div class="task"><p>Sprint planner screen</p><span class="tag feat">Feature</span><div class="meta"><span><i class="bi bi-calendar3"></i>18 Oct</span><span class="av sm">OF</span></div></div></div>
+            <a href="task-detail.html" class="task"><div class="task-pri pri-high"><i class="bi bi-circle-fill" style="font-size:8px"></i>High</div><p>Push token refresh</p><span class="tag imp">Improvement</span><div class="meta"><span><i class="bi bi-calendar3"></i>15 Oct</span><span class="av sm">BM</span></div></a>
+            <a href="task-detail.html" class="task"><div class="task-pri pri-med"><i class="bi bi-circle-fill" style="font-size:8px"></i>Medium</div><p>Sprint planner screen</p><span class="tag feat">Feature</span><div class="meta"><span><i class="bi bi-calendar3"></i>18 Oct</span><span class="av sm">OF</span></div></a>
+            <a href="task-detail.html" class="task"><div class="task-pri pri-high"><i class="bi bi-circle-fill" style="font-size:8px"></i>High</div><p>Notification settings</p><span class="tag bug">Bug</span><div class="meta"><span><i class="bi bi-calendar3"></i>13 Oct</span><span class="av sm">SA</span></div></a>
+          </div>
           <div class="col"><h3>In review <b>9</b></h3>
-            <div class="task"><p>Export report</p><span class="tag feat">Feature</span><div class="meta"><span><i class="bi bi-calendar3"></i>14 Oct</span><span class="av sm">SA</span></div></div>
-            <div class="task"><p>Crash on file upload</p><span class="tag bug">Bug</span><div class="meta"><span><i class="bi bi-calendar3"></i>11 Oct</span><span class="av sm">BM</span></div></div></div>
+            <a href="task-detail.html" class="task"><div class="task-pri pri-med"><i class="bi bi-circle-fill" style="font-size:8px"></i>Medium</div><p>Export report</p><span class="tag feat">Feature</span><div class="meta"><span><i class="bi bi-calendar3"></i>14 Oct</span><span class="av sm">SA</span></div></a>
+            <a href="task-detail.html" class="task"><div class="task-pri pri-crit"><i class="bi bi-circle-fill" style="font-size:8px"></i>Critical</div><p>Crash on file upload</p><span class="tag bug">Bug</span><div class="meta"><span><i class="bi bi-calendar3"></i>11 Oct</span><span class="av sm">BM</span></div></a>
+          </div>
           <div class="col"><h3>Done <b>31</b></h3>
-            <div class="task"><p>Role permissions</p><span class="tag imp">Improvement</span><div class="meta"><span><i class="bi bi-check2"></i>6 Oct</span><span class="av sm">AK</span></div></div>
-            <div class="task"><p>Comment @mentions</p><span class="tag feat">Feature</span><div class="meta"><span><i class="bi bi-check2"></i>4 Oct</span><span class="av sm">OF</span></div></div></div>
+            <a href="task-detail.html" class="task"><div class="task-pri pri-med"><i class="bi bi-circle-fill" style="font-size:8px"></i>Medium</div><p>Role permissions</p><span class="tag imp">Improvement</span><div class="meta"><span><i class="bi bi-check2"></i>6 Oct</span><span class="av sm">AK</span></div></a>
+            <a href="task-detail.html" class="task"><div class="task-pri pri-low"><i class="bi bi-circle-fill" style="font-size:8px"></i>Low</div><p>Comment @mentions</p><span class="tag feat">Feature</span><div class="meta"><span><i class="bi bi-check2"></i>4 Oct</span><span class="av sm">OF</span></div></a>
+          </div>
         </div>
       </section>
 
+      <!-- ── Overdue + Workload ─────────────────────── -->
       <section class="grid two">
         <div class="card" id="overdue">
           <div class="card-h"><h3>Overdue tasks</h3><span class="tag bug">5 overdue</span></div>
           <div class="scroll"><table>
             <thead><tr><th>Task</th><th>Type</th><th>Assignee</th><th>Due</th></tr></thead>
             <tbody>
-              <tr><td data-label="Task">Crash on file upload</td><td data-label="Type"><span class="tag bug">Bug</span></td><td data-label="Assignee">Bilal</td><td data-label="Due">7 Oct</td></tr>
-              <tr><td data-label="Task">Notification settings page</td><td data-label="Type"><span class="tag feat">Feature</span></td><td data-label="Assignee">Sara</td><td data-label="Due">6 Oct</td></tr>
-              <tr><td data-label="Task">Cache project list</td><td data-label="Type"><span class="tag imp">Improvement</span></td><td data-label="Assignee">Omar</td><td data-label="Due">5 Oct</td></tr>
+              <tr><td data-label="Task"><a href="task-detail.html">Crash on file upload</a></td><td data-label="Type"><span class="tag bug">Bug</span></td><td data-label="Assignee">Bilal</td><td data-label="Due" style="color:var(--red-ink);font-weight:600">7 Oct</td></tr>
+              <tr><td data-label="Task"><a href="task-detail.html">Notification settings page</a></td><td data-label="Type"><span class="tag feat">Feature</span></td><td data-label="Assignee">Sara</td><td data-label="Due" style="color:var(--red-ink);font-weight:600">6 Oct</td></tr>
+              <tr><td data-label="Task"><a href="task-detail.html">Cache project list</a></td><td data-label="Type"><span class="tag imp">Improvement</span></td><td data-label="Assignee">Omar</td><td data-label="Due" style="color:var(--red-ink);font-weight:600">5 Oct</td></tr>
             </tbody>
           </table></div>
         </div>

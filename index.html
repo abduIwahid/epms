@@ -4,54 +4,183 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>EPMS — Plan sprints, track tasks, ship together</title>
+<meta name="description" content="EPMS gives engineering teams one kanban board, one sprint planner, and threaded task comments — all in one place.">
 <link rel="icon" type="image/svg+xml" href="logo.svg">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Source+Sans+3:wght@400;600;700&display=swap">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
+<!-- ── Hero ──────────────────────────────────────────────── -->
 <header class="hero">
   <div class="wrap">
     <nav class="lnav" aria-label="Main">
       <a class="brand" href="index.html"><img src="logo.svg" alt="" width="38" height="38">EPMS</a>
-      <span class="cta"><a class="btn" href="login.html">Log in</a><a class="btn pri" href="dashboard.html"><i class="bi bi-grid-1x2"></i>Open dashboard</a></span>
+      <span class="cta"><a class="btn" href="login.html">Log in</a><a class="btn pri" href="signup.html"><i class="bi bi-person-plus"></i>Get started free</a></span>
     </nav>
+
     <div class="hero-grid">
       <div>
         <h1>Sprints, tasks and comments in one place.</h1>
         <p>Stop switching between spreadsheets, chat and spec docs. EPMS gives your engineering team one board, one status, and one thread per task.</p>
-        <div class="cta"><a class="btn pri" href="login.html"><i class="bi bi-plus-lg"></i>Create your first project</a><a class="btn" href="#features">See features</a></div>
+        <div class="cta">
+          <a class="btn pri" href="signup.html"><i class="bi bi-plus-lg"></i>Create your first project</a>
+          <a class="btn" href="#features">See features</a>
+        </div>
       </div>
-      <div class="peek" aria-label="Board preview">
-        <div><b>To do</b><p>Fix login timeout <span class="tag bug">Bug</span></p><p>Export report</p></div>
-        <div><b>In progress</b><p>Sprint planner <span class="tag feat">Feature</span></p></div>
-        <div><b>Done</b><p>Role permissions <span class="tag imp">Improvement</span></p><p>Upload files</p></div>
+
+      <!-- browser-frame mockup -->
+      <div class="mockup" aria-label="Dashboard preview">
+        <div class="mockup-bar">
+          <div class="mockup-dots"><span></span><span></span><span></span></div>
+          <div class="mockup-url">app.epms.io/dashboard</div>
+        </div>
+        <div class="mockup-body">
+          <div class="mockup-side">
+            <div class="mockup-item active"><i class="bi bi-grid-1x2"></i>Dashboard</div>
+            <div class="mockup-item"><i class="bi bi-kanban"></i>Board</div>
+            <div class="mockup-item"><i class="bi bi-calendar-range"></i>Sprints</div>
+            <div class="mockup-item"><i class="bi bi-folder2-open"></i>Projects</div>
+            <div class="mockup-item"><i class="bi bi-people"></i>Profiles</div>
+          </div>
+          <div class="mockup-main">
+            <div class="mockup-kpi">
+              <div class="mockup-kpi-card"><b>42</b><span>Open tasks</span></div>
+              <div class="mockup-kpi-card"><b>9</b><span>In review</span></div>
+              <div class="mockup-kpi-card" style="border-top:2px solid #C0504D"><b style="color:#C0504D">5</b><span>Overdue</span></div>
+              <div class="mockup-kpi-card"><b>31</b><span>Done</span></div>
+            </div>
+            <div class="mockup-board">
+              <div class="mockup-col"><div class="mockup-col-h">To do · 12</div><div class="mockup-task">Fix login timeout<br><span style="background:#F6DEDC;color:#8A2B2B;border-radius:4px;padding:1px 5px;font-size:9px">Bug</span></div><div class="mockup-task">Dark mode toggle</div></div>
+              <div class="mockup-col"><div class="mockup-col-h">In progress · 18</div><div class="mockup-task">Push token refresh<br><span style="background:#D6ECF3;color:#0F4A66;border-radius:4px;padding:1px 5px;font-size:9px">Improvement</span></div></div>
+              <div class="mockup-col"><div class="mockup-col-h">In review · 9</div><div class="mockup-task">Export report</div></div>
+              <div class="mockup-col"><div class="mockup-col-h">Done · 31</div><div class="mockup-task" style="opacity:.6">Role permissions</div></div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </header>
 
+<!-- ── Stats strip ────────────────────────────────────────── -->
+<div class="stats-strip" aria-label="Product stats">
+  <div class="wrap">
+    <div><b>500+</b><span>Teams using EPMS</span></div>
+    <div><b>12,000+</b><span>Tasks shipped this month</span></div>
+    <div><b>98%</b><span>Sprint completion rate</span></div>
+    <div><b>4.9★</b><span>Average team satisfaction</span></div>
+  </div>
+</div>
+
+<!-- ── Features ───────────────────────────────────────────── -->
 <section class="sec" id="features"><div class="wrap">
   <h2>Everything a project team needs</h2>
+  <p class="sub">One tool for planning, executing and shipping — no context-switching required.</p>
   <div class="grid g3">
     <article class="card feat-card"><span class="chip"><i class="bi bi-folder2-open"></i></span><h3>Projects and members</h3><p>Create, edit and archive projects. Invite people and set who can do what.</p></article>
-    <article class="card feat-card"><span class="chip"><i class="bi bi-calendar-range"></i></span><h3>Sprint planning</h3><p>Give each sprint a goal, a start date and an end date.</p></article>
-    <article class="card feat-card"><span class="chip"><i class="bi bi-kanban"></i></span><h3>Kanban board</h3><p>Drag tasks between columns. Tag them as Bug, Feature or Improvement.</p></article>
-    <article class="card feat-card"><span class="chip"><i class="bi bi-chat-left-text"></i></span><h3>Threaded comments</h3><p>Discuss on the task itself. @mention a teammate to pull them in.</p></article>
-    <article class="card feat-card"><span class="chip"><i class="bi bi-lightning-charge"></i></span><h3>Live updates</h3><p>Board changes and new comments appear for everyone, without a refresh.</p></article>
-    <article class="card feat-card"><span class="chip"><i class="bi bi-paperclip"></i></span><h3>Notifications and files</h3><p>Get alerted when you are assigned or mentioned. Attach files to tasks.</p></article>
+    <article class="card feat-card"><span class="chip"><i class="bi bi-calendar-range"></i></span><h3>Sprint planning</h3><p>Give each sprint a goal, a start date and an end date. Burndown charts included.</p></article>
+    <article class="card feat-card"><span class="chip"><i class="bi bi-kanban"></i></span><h3>Kanban board</h3><p>Move tasks between columns. Filter by Bug, Feature or Improvement in one click.</p></article>
+    <article class="card feat-card"><span class="chip"><i class="bi bi-chat-left-text"></i></span><h3>Threaded comments</h3><p>Discuss on the task itself. @mention a teammate to pull them in instantly.</p></article>
+    <article class="card feat-card"><span class="chip"><i class="bi bi-paperclip"></i></span><h3>File attachments</h3><p>Attach design files, bug reports or logs directly to any task.</p></article>
+    <article class="card feat-card"><span class="chip"><i class="bi bi-bell"></i></span><h3>Smart notifications</h3><p>Get alerted when assigned or @mentioned. Overdue task digests keep nothing slipping.</p></article>
   </div>
 </div></section>
 
+<!-- ── How it works ───────────────────────────────────────── -->
+<section class="sec" style="background:var(--surface)"><div class="wrap">
+  <h2>How it works</h2>
+  <p class="sub">Three steps from sign-up to shipping your first sprint.</p>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-line"></div>
+      <h3>Create a project</h3>
+      <p>Give it a name, invite your team, and set roles. Takes under 2 minutes.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-line"></div>
+      <h3>Plan a sprint</h3>
+      <p>Add tasks to the backlog, set priorities and due dates, then lock in your sprint goal.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h3>Ship and track</h3>
+      <p>Move cards on the board, comment on tasks, and watch the burndown chart fall to zero.</p>
+    </div>
+  </div>
+</div></section>
+
+<!-- ── Roles ──────────────────────────────────────────────── -->
 <section class="sec band"><div class="wrap">
   <h2>Built for three roles</h2>
   <div class="grid g3">
-    <article class="card"><span class="chip"><i class="bi bi-shield-check"></i></span><h3 style="margin:14px 0 6px">Admin</h3><p>Manage users, roles and all projects across the organization.</p><a href="profiles.html#admin">View admin profile</a></article>
-    <article class="card"><span class="chip"><i class="bi bi-kanban"></i></span><h3 style="margin:14px 0 6px">Project Manager</h3><p>Plan sprints, assign work and watch progress on the dashboard.</p><a href="profiles.html#pm">View manager profile</a></article>
-    <article class="card"><span class="chip"><i class="bi bi-person-badge"></i></span><h3 style="margin:14px 0 6px">Team Member</h3><p>Pick up tasks, update status and comment with the team.</p><a href="profiles.html#member">View member profile</a></article>
+    <article class="card"><span class="chip"><i class="bi bi-shield-check"></i></span><h3 style="margin:14px 0 6px">Admin</h3><p>Manage users, roles and all projects across the organization.</p><a href="profiles.html#admin">View admin profile →</a></article>
+    <article class="card"><span class="chip"><i class="bi bi-kanban"></i></span><h3 style="margin:14px 0 6px">Project Manager</h3><p>Plan sprints, assign work and watch progress on the dashboard.</p><a href="profiles.html#pm">View manager profile →</a></article>
+    <article class="card"><span class="chip"><i class="bi bi-person-badge"></i></span><h3 style="margin:14px 0 6px">Team Member</h3><p>Pick up tasks, update status and comment with the team.</p><a href="profiles.html#member">View member profile →</a></article>
   </div>
 </div></section>
 
-<footer><div class="wrap"><a class="brand" href="index.html" style="font-size:16px"><img src="logo.svg" alt="" width="28" height="28">EPMS</a><span>Web Technologies semester project, COMSATS University Islamabad (Attock Campus).</span></div></footer>
+<!-- ── FAQ ───────────────────────────────────────────────── -->
+<section class="sec" id="faq"><div class="wrap">
+  <h2>Frequently asked questions</h2>
+  <p class="sub">Can't find an answer? <a href="mailto:support@epms.io" style="color:var(--b600)">Email us.</a></p>
+  <div class="faq">
+    <details>
+      <summary>Is EPMS free to use?</summary>
+      <div class="ans">Yes — EPMS is completely free during open beta. When we launch the paid tier, existing teams will stay on a free plan for up to 5 members.</div>
+    </details>
+    <details>
+      <summary>How many projects can I create?</summary>
+      <div class="ans">Unlimited during beta. On the paid tier, the free plan includes up to 3 active projects; Pro unlocks unlimited projects and advanced analytics.</div>
+    </details>
+    <details>
+      <summary>Can I import tasks from Jira or Trello?</summary>
+      <div class="ans">A CSV importer is available in Settings → Import. One-click connectors for Jira and Trello are on our roadmap for Q1 2027.</div>
+    </details>
+    <details>
+      <summary>Is there a mobile app?</summary>
+      <div class="ans">EPMS is a responsive web app that works well on any modern phone browser. Native iOS and Android apps are planned for Q2 2027.</div>
+    </details>
+    <details>
+      <summary>How does the notification system work?</summary>
+      <div class="ans">You get an in-app bell notification when you are assigned a task, @mentioned in a comment, or when a task you own changes status. Daily email digests for overdue tasks can be enabled in Settings → Notifications.</div>
+    </details>
+    <details>
+      <summary>What data is stored and where?</summary>
+      <div class="ans">All data is stored in EU-West servers (Frankfurt, AWS). We never sell your data. Full GDPR-compliant data export is available in Settings → Danger zone → Export.</div>
+    </details>
+  </div>
+</div></section>
+
+<!-- ── CTA strip ──────────────────────────────────────────── -->
+<section class="sec" style="background:linear-gradient(135deg,var(--b900),var(--b800));color:var(--on);text-align:center">
+  <div class="wrap">
+    <h2 style="color:#fff;margin-bottom:12px">Ready to ship faster?</h2>
+    <p style="color:#C9D8F2;max-width:42ch;margin:0 auto 28px;font-size:1.05rem">Create your workspace in under 2 minutes — no credit card required.</p>
+    <div class="cta" style="justify-content:center">
+      <a class="btn pri" href="signup.html"><i class="bi bi-plus-lg"></i>Get started free</a>
+      <a class="btn" style="border-color:rgba(255,255,255,.3);color:#fff" href="dashboard.html"><i class="bi bi-grid-1x2"></i>Open demo dashboard</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ─────────────────────────────────────────────── -->
+<footer>
+  <div class="wrap">
+    <a class="brand" href="index.html" style="font-size:16px"><img src="logo.svg" alt="" width="28" height="28">EPMS</a>
+    <span>Web Technologies semester project, COMSATS University Islamabad (Attock Campus).</span>
+    <span style="margin-left:auto;display:flex;gap:14px;flex-wrap:wrap">
+      <a href="login.html" style="color:var(--muted);text-decoration:none">Log in</a>
+      <a href="signup.html" style="color:var(--muted);text-decoration:none">Sign up</a>
+      <a href="dashboard.html" style="color:var(--muted);text-decoration:none">Dashboard</a>
+      <a href="projects.html" style="color:var(--muted);text-decoration:none">Projects</a>
+      <a href="404.html" style="color:var(--muted);text-decoration:none">404</a>
+    </span>
+  </div>
+</footer>
+
 </body>
 </html>
