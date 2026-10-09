@@ -4,62 +4,70 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Profiles — EPMS</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23F2A03D'/%3E%3Cpath d='M8 9h16M8 16h10M8 23h13' stroke='%233A2300' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="icon" type="image/svg+xml" href="logo.svg">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Source+Sans+3:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 <input type="checkbox" id="nav" aria-label="Toggle menu">
+<label class="scrim" for="nav" aria-label="Close menu"></label>
 <div class="app">
   <aside class="side">
-    <a class="brand" href="index.html"><span class="logo">E</span><span class="t">EPMS</span></a>
+    <a class="brand" href="index.html"><img src="logo.svg" alt="" width="36" height="36"><span class="t">EPMS</span></a>
     <nav class="nav" aria-label="App">
-      <a href="dashboard.html"><i>▦</i><span class="t">Dashboard</span></a>
-      <a href="dashboard.html#board"><i>▤</i><span class="t">Board</span></a>
-      <a href="dashboard.html#sprint"><i>◷</i><span class="t">Sprints</span></a>
-      <a href="dashboard.html#overdue"><i>✔</i><span class="t">Tasks</span></a>
-      <a href="profiles.html" aria-current="page"><i>☺</i><span class="t">Profiles</span></a>
-      <a href="login.html"><i>⎋</i><span class="t">Sign out</span></a>
+      <a href="dashboard.html" title="Dashboard"><i class="bi bi-grid-1x2"></i><span class="t">Dashboard</span></a>
+      <a href="dashboard.html#board" title="Board"><i class="bi bi-kanban"></i><span class="t">Board</span></a>
+      <a href="dashboard.html#sprint" title="Sprints"><i class="bi bi-calendar-range"></i><span class="t">Sprints</span></a>
+      <a href="dashboard.html#overdue" title="Tasks"><i class="bi bi-check2-square"></i><span class="t">Tasks</span></a>
+      <a href="profiles.html" aria-current="page" title="Profiles"><i class="bi bi-people"></i><span class="t">Profiles</span></a>
+      <a href="login.html" title="Sign out"><i class="bi bi-box-arrow-right"></i><span class="t">Sign out</span></a>
     </nav>
-    <label class="scrim" for="nav"></label>
+    <div class="me"><span class="av">SK</span><div class="t"><b>Sana Khan</b><small>Project Manager</small></div></div>
   </aside>
-  <div>
+
+  <div class="page">
     <header class="top">
-      <label class="ico burger" for="nav" aria-label="Open menu">☰</label>
-      <form class="search" role="search" onsubmit="return false"><span aria-hidden="true">⌕</span><input type="search" placeholder="Search people and roles" aria-label="Search"></form>
+      <label class="ico burger" for="nav" aria-label="Open menu"><i class="bi bi-list"></i></label>
+      <div class="search" role="search"><i class="bi bi-search"></i><input type="search" placeholder="Search people and roles" aria-label="Search"></div>
       <span class="sp"></span>
-      <a class="ico" href="dashboard.html#activity" aria-label="Notifications, 3 new">🔔<span class="dot"></span></a>
+      <a class="ico" href="dashboard.html#activity" aria-label="Notifications, 3 new"><i class="bi bi-bell"></i><span class="dot"></span></a>
       <a class="av" href="#pm" aria-label="Your profile">SK</a>
     </header>
+
     <main>
       <div class="head"><div><h1>Profiles</h1><p>What each role can see and do</p></div></div>
-      <nav class="tabs" aria-label="Roles"><a href="#admin">Admin</a><a href="#pm">Project Manager</a><a href="#member">Team Member</a></nav>
+      <nav class="tabs" aria-label="Roles">
+        <a href="#admin"><i class="bi bi-shield-check"></i>Admin</a>
+        <a href="#pm"><i class="bi bi-kanban"></i>Project Manager</a>
+        <a href="#member"><i class="bi bi-person-badge"></i>Team Member</a>
+      </nav>
 
       <div class="panes">
         <section class="pane" id="admin">
-          <div class="who"><span class="av">AR</span><div><h2>Ahsan Raza</h2><p style="margin:0;color:var(--muted)">Admin · ahsan@example.com</p></div></div>
+          <div class="who"><span class="av">AR</span><div><h2>Ahsan Raza</h2><p>Admin · ahsan@example.com</p></div></div>
           <div class="grid g3">
             <div class="card"><h3>Permissions</h3><ul class="perm"><li>Create and remove users</li><li>Assign and change roles</li><li>See and archive every project</li><li>Review the audit log</li></ul></div>
             <div class="card"><h3>Organization</h3><div class="row"><span>Users</span><b>48</b></div><div class="row"><span>Active projects</span><b>12</b></div><div class="row"><span>Archived projects</span><b>7</b></div></div>
-            <div class="card"><h3>Account</h3><label for="a1">Display name</label><input id="a1" value="Ahsan Raza"><label for="a2">Email</label><input id="a2" type="email" value="ahsan@example.com"><p><a class="btn pri" href="#admin">Save changes</a></p></div>
+            <div class="card"><h3>Account</h3><label for="a1">Display name</label><input id="a1" value="Ahsan Raza"><label for="a2">Email</label><input id="a2" type="email" value="ahsan@example.com"><p><a class="btn pri" href="#admin"><i class="bi bi-check2"></i>Save changes</a></p></div>
           </div>
         </section>
 
         <section class="pane" id="pm">
-          <div class="who"><span class="av">SK</span><div><h2>Sana Khan</h2><p style="margin:0;color:var(--muted)">Project Manager · sana@example.com</p></div></div>
+          <div class="who"><span class="av">SK</span><div><h2>Sana Khan</h2><p>Project Manager · sana@example.com</p></div></div>
           <div class="grid g3">
             <div class="card"><h3>Permissions</h3><ul class="perm"><li>Create and edit own projects</li><li>Plan sprints and set goals</li><li>Assign tasks and set priority</li><li>Manage project members</li><li class="no">Cannot change user roles</li></ul></div>
             <div class="card"><h3>Projects</h3><div class="row"><span>Orion Mobile Release</span><span class="tag feat">Active</span></div><div class="row"><span>Billing Portal</span><span class="tag imp">Planning</span></div><div class="row"><span>Legacy API</span><span class="tag">Archived</span></div></div>
-            <div class="card"><h3>Account</h3><label for="p1">Display name</label><input id="p1" value="Sana Khan"><label for="p2">Email</label><input id="p2" type="email" value="sana@example.com"><p><a class="btn pri" href="#pm">Save changes</a></p></div>
+            <div class="card"><h3>Account</h3><label for="p1">Display name</label><input id="p1" value="Sana Khan"><label for="p2">Email</label><input id="p2" type="email" value="sana@example.com"><p><a class="btn pri" href="#pm"><i class="bi bi-check2"></i>Save changes</a></p></div>
           </div>
         </section>
 
         <section class="pane" id="member">
-          <div class="who"><span class="av">BM</span><div><h2>Bilal Mehmood</h2><p style="margin:0;color:var(--muted)">Team Member · bilal@example.com</p></div></div>
+          <div class="who"><span class="av">BM</span><div><h2>Bilal Mehmood</h2><p>Team Member · bilal@example.com</p></div></div>
           <div class="grid g3">
             <div class="card"><h3>Permissions</h3><ul class="perm"><li>View projects you belong to</li><li>Update status of your tasks</li><li>Comment and @mention teammates</li><li>Attach files to tasks</li><li class="no">Cannot plan sprints or add members</li></ul></div>
             <div class="card"><h3>My tasks</h3><div class="row"><span>Assigned</span><b>8</b></div><div class="row"><span>In review</span><b>2</b></div><div class="row"><span>Overdue</span><b>1</b></div></div>
-            <div class="card"><h3>Account</h3><label for="m1">Display name</label><input id="m1" value="Bilal Mehmood"><label for="m2">Email</label><input id="m2" type="email" value="bilal@example.com"><p><a class="btn pri" href="#member">Save changes</a></p></div>
+            <div class="card"><h3>Account</h3><label for="m1">Display name</label><input id="m1" value="Bilal Mehmood"><label for="m2">Email</label><input id="m2" type="email" value="bilal@example.com"><p><a class="btn pri" href="#member"><i class="bi bi-check2"></i>Save changes</a></p></div>
           </div>
         </section>
       </div>

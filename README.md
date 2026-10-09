@@ -22,7 +22,9 @@ Semester project, Web Technologies — BS Artificial Intelligence, COMSATS Unive
 
 ## Design
 
-- **Color (60-30-10):** paper background and white cards (60%), ink navy (30%), signal amber (10%).
+- **Color (60-30-10):** off-white backgrounds and cards (60%), deep blue shades `--b900` to `--b700` (30%), bright blue accent `--b500`/`--b600` (10%). Shadows are blue-tinted.
+- **Icons:** Bootstrap Icons 1.11.3 via CDN (`<i class="bi bi-...">`). No emojis.
+- **Logo:** `logo.svg` (E built from task bars with a progress node). Also used as the favicon.
 - **Retheme:** edit the variables in `:root` at the top of `styles.css`.
 - **Type:** Archivo for headings, Source Sans 3 for body text.
 - **Accessibility:** semantic HTML, visible focus outlines, 44px touch targets, reduced-motion support.
