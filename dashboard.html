@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dashboard — EPMS</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23F2A03D'/%3E%3Cpath d='M8 9h16M8 16h10M8 23h13' stroke='%233A2300' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Source+Sans+3:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<input type="checkbox" id="nav" aria-label="Toggle menu">
+<div class="app">
+  <aside class="side">
+    <a class="brand" href="index.html"><span class="logo">E</span><span class="t">EPMS</span></a>
+    <nav class="nav" aria-label="App">
+      <a href="dashboard.html" aria-current="page"><i>▦</i><span class="t">Dashboard</span></a>
+      <a href="#board"><i>▤</i><span class="t">Board</span></a>
+      <a href="#sprint"><i>◷</i><span class="t">Sprints</span></a>
+      <a href="#overdue"><i>✔</i><span class="t">Tasks</span></a>
+      <a href="profiles.html"><i>☺</i><span class="t">Profiles</span></a>
+      <a href="login.html"><i>⎋</i><span class="t">Sign out</span></a>
+    </nav>
+    <label class="scrim" for="nav"></label>
+  </aside>
+  <div>
+    <header class="top">
+      <label class="ico burger" for="nav" aria-label="Open menu">☰</label>
+      <form class="search" role="search" onsubmit="return false"><span aria-hidden="true">⌕</span><input type="search" placeholder="Search tasks, projects, people" aria-label="Search"></form>
+      <span class="sp"></span>
+      <a class="ico" href="#activity" aria-label="Notifications, 3 new">🔔<span class="dot"></span></a>
+      <a class="av" href="profiles.html#pm" aria-label="Your profile">SK</a>
+    </header>
+    <main>
+      <div class="head">
+        <div><h1>Orion Mobile Release</h1><p>Sprint 7 · ends 24 Oct</p></div>
+        <a class="btn pri" href="#board">New task</a>
+      </div>
+
+      <section class="grid stats" aria-label="Task counts">
+        <div class="card stat"><b>42</b><span>Open tasks</span></div>
+        <div class="card stat"><b>9</b><span>In review</span></div>
+        <div class="card stat hot"><b>5</b><span>Overdue</span></div>
+        <div class="card stat"><b>31</b><span>Done this sprint</span></div>
+      </section>
+
+      <section class="grid two">
+        <div class="card" id="sprint">
+          <h3>Sprint 7 progress</h3>
+          <p style="margin:0;color:var(--muted)">Goal: ship push notifications to beta testers.</p>
+          <div class="row"><span>To do</span><span>12</span></div><div class="bar"><span style="width:17%"></span></div>
+          <div class="row"><span>In progress</span><span>18</span></div><div class="bar"><span style="width:26%"></span></div>
+          <div class="row"><span>In review</span><span>9</span></div><div class="bar"><span style="width:13%"></span></div>
+          <div class="row"><span>Done</span><span>31</span></div><div class="bar hot"><span style="width:44%"></span></div>
+        </div>
+        <div class="card" id="activity">
+          <h3>Recent activity</h3>
+          <ul class="feed">
+            <li><b>Ayesha</b> assigned you “Fix login timeout”</li>
+            <li><b>Bilal</b> mentioned you in “Push token refresh”</li>
+            <li><b>Sara</b> moved “Export report” to Review</li>
+            <li><b>Omar</b> attached <i>wireframes.pdf</i></li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="board" aria-label="Kanban board">
+        <h2 style="margin-bottom:12px">Board</h2>
+        <div class="board">
+          <div class="col"><h3>To do · 12</h3>
+            <div class="task"><p>Fix login timeout</p><span class="tag bug">Bug</span> <small>Due 12 Oct</small></div>
+            <div class="task"><p>Dark mode toggle</p><span class="tag feat">Feature</span> <small>Due 20 Oct</small></div></div>
+          <div class="col"><h3>In progress · 18</h3>
+            <div class="task"><p>Push token refresh</p><span class="tag imp">Improvement</span> <small>Due 15 Oct</small></div>
+            <div class="task"><p>Sprint planner screen</p><span class="tag feat">Feature</span> <small>Due 18 Oct</small></div></div>
+          <div class="col"><h3>In review · 9</h3>
+            <div class="task"><p>Export report</p><span class="tag feat">Feature</span> <small>Due 14 Oct</small></div>
+            <div class="task"><p>Crash on file upload</p><span class="tag bug">Bug</span> <small>Due 11 Oct</small></div></div>
+          <div class="col"><h3>Done · 31</h3>
+            <div class="task"><p>Role permissions</p><span class="tag imp">Improvement</span> <small>Closed 6 Oct</small></div>
+            <div class="task"><p>Comment @mentions</p><span class="tag feat">Feature</span> <small>Closed 4 Oct</small></div></div>
+        </div>
+      </section>
+
+      <section class="card" id="overdue">
+        <h3>Overdue tasks</h3>
+        <div class="scroll"><table>
+          <thead><tr><th>Task</th><th>Type</th><th>Assignee</th><th>Due</th></tr></thead>
+          <tbody>
+            <tr><td>Crash on file upload</td><td><span class="tag bug">Bug</span></td><td>Bilal</td><td>7 Oct</td></tr>
+            <tr><td>Notification settings page</td><td><span class="tag feat">Feature</span></td><td>Sara</td><td>6 Oct</td></tr>
+            <tr><td>Cache project list</td><td><span class="tag imp">Improvement</span></td><td>Omar</td><td>5 Oct</td></tr>
+          </tbody>
+        </table></div>
+      </section>
+    </main>
+  </div>
+</div>
+</body>
+</html>

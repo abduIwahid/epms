@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Log in — EPMS</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23F2A03D'/%3E%3Cpath d='M8 9h16M8 16h10M8 23h13' stroke='%233A2300' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Source+Sans+3:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<main class="auth">
+  <form class="card" action="dashboard.html">
+    <a class="brand" href="index.html" style="margin-bottom:16px"><span class="logo">E</span>EPMS</a>
+    <h1 style="font-size:1.5rem">Log in to your workspace</h1>
+    <label for="e">Email</label><input id="e" type="email" placeholder="you@company.com" required>
+    <label for="p">Password</label><input id="p" type="password" required>
+    <label for="r">Role</label>
+    <select id="r"><option>Admin</option><option>Project Manager</option><option selected>Team Member</option></select>
+    <p><button class="btn pri" style="width:100%" type="submit">Log in</button></p>
+    <p style="font-size:14px;color:var(--muted);margin:0">New here? <a href="login.html">Create an account</a> · <a href="login.html">Forgot password</a></p>
+  </form>
+</main>
+</body>
+</html>
