@@ -12,6 +12,11 @@ Semester project, Web Technologies — BS Artificial Intelligence, COMSATS Unive
 | `login.html` | Login form with role selector |
 | `dashboard.html` | Stat cards, sprint progress, activity feed, Kanban board, overdue tasks |
 | `profiles.html` | Admin, Project Manager and Team Member profiles (CSS-only tabs) |
+| `projects.html` | Project listing and project details |
+| `settings.html` | Workspace and account settings |
+| `signup.html` | Registration form |
+| `forgot-password.html` | Password recovery form |
+| `404.html` | Custom not-found page |
 | `styles.css` | Shared styles, theme variables, responsive rules |
 
 ## Run locally
